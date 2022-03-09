@@ -1,7 +1,7 @@
 import styles from "./MovieCard.module.scss";
 const MovieCard = (props) => {
     return (
-        <div className={styles.container}>
+        <div onClick={props.onClick} className={styles.container}>
             <div>
                 <img
                     className={styles.poster}

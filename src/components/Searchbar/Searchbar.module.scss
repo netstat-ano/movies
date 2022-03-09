@@ -1,0 +1,37 @@
+.searchbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.close {
+    width: 60%;
+    text-align: end;
+}
+.close-icon {
+    font-size: 2rem;
+    color: gray;
+    font-family: "Fredoka", sans-serif;
+    &:hover {
+        cursor: pointer;
+    }
+}
+.input-active {
+    border: none;
+    outline: none;
+    height: 3rem;
+    width: 60%;
+    font-size: 2rem;
+    border-bottom: 1px solid black;
+}
+.input-inactive {
+    width: 40%;
+    border: none;
+    outline: none;
+    -webkit-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+    -moz-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+    box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+    height: 1.5rem;
+}
+.input {
+}

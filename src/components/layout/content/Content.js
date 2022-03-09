@@ -1,4 +1,5 @@
+import styles from "./Content.module.scss";
 const Content = (props) => {
-    return <div>Discover new shows:</div>;
+    return <div className={styles.content}>Discover new shows:</div>;
 };
 export default Content;
