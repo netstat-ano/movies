@@ -1,0 +1,47 @@
+.container {
+    display: grid;
+    grid-template-columns: 20% 45%;
+    width: 100%;
+}
+.container-info {
+    margin-left: 1rem;
+}
+.title {
+    font-size: 2rem;
+}
+.plot {
+    font-size: 1.2rem;
+}
+.poster {
+    width: 100%;
+}
+.rating {
+    font-size: 1.8rem;
+}
+.rating-number {
+    font-size: 1.4rem;
+}
+.side-info {
+    color: #6c757d;
+}
+.add-to-list {
+    margin-top: 4rem;
+}
+@media only screen and (max-width: 767px) {
+    .rating {
+        font-size: 1.4rem;
+    }
+    .rating-number {
+        font-size: 1.2rem;
+    }
+    .container {
+        padding: 1rem;
+        grid-template-columns: 1fr;
+    }
+    .title {
+        font-size: 1.2rem;
+    }
+    .plot {
+        font-family: 1rem;
+    }
+}

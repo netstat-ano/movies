@@ -22,7 +22,7 @@ const Searchbar = (props) => {
     const onMovieCardClickHandler = (event, movieInfo) => {
         setSearchedShow("");
         props.setIsSearchingActive(false);
-        console.log(movieInfo);
+        props.setMovie(movieInfo);
     };
 
     const onFocusHandler = () => {
