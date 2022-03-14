@@ -18,7 +18,9 @@ function App() {
                     isSearchingActive={isSearchingActive}
                     setIsSearchingActive={setIsSearchingActive}
                 />
-                <Profile user={user} />
+                {!isSearchingActive && (
+                    <Profile setUser={setUser} user={user} />
+                )}
             </div>
             {movie && !isSearchingActive && (
                 <MovieSite user={user} setMovie={setMovie} movieInfo={movie} />

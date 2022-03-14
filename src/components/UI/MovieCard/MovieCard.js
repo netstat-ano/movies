@@ -1,7 +1,8 @@
 import styles from "./MovieCard.module.scss";
+import Card from "../Card/Card";
 const MovieCard = (props) => {
     return (
-        <div onClick={props.onClick} className={styles.container}>
+        <Card onClick={props.onClick} className={styles.container}>
             <div>
                 <img
                     className={styles.poster}
@@ -13,7 +14,7 @@ const MovieCard = (props) => {
                 {props.Title} <p>{props.plot}</p>
             </div>
             <div className={styles.year}>{props.Year}</div>
-        </div>
+        </Card>
     );
 };
 export default MovieCard;

@@ -1,0 +1,44 @@
+.card {
+    background-color: white;
+    padding: 0.5rem;
+    max-width: 500px;
+    word-break: break-all;
+    width: 25%;
+}
+.trigger {
+    &:hover {
+        cursor: pointer;
+    }
+}
+.mg-top {
+    margin-top: 0.5rem;
+}
+.btn {
+    font-size: 0.9rem;
+}
+.btn-container {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.error {
+    color: #dc3545;
+    font-size: 0.8rem;
+}
+.trigger {
+    text-decoration: underline;
+    color: #17a2b8;
+}
+.close {
+    width: 100%;
+    text-align: end;
+}
+.close-icon {
+    font-size: 1.2rem;
+    color: gray;
+    font-family: "Fredoka", sans-serif;
+    &:hover {
+        cursor: pointer;
+    }
+}
