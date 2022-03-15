@@ -1,8 +1,26 @@
 import styles from "./MovieSite.module.scss";
 import Raiting from "../Raiting/Raiting";
 import GreenButton from "../GreenButton/GreenButton";
+import { getDatabase, update, ref } from "firebase/database";
+import app from "../../../firebase";
+import { useState } from "react";
 const MovieSite = (props) => {
     console.log(props.movieInfo);
+    const [isButtonExpanded, setIsButtonExpanded] = useState(false);
+    const onAddToListHandler = (event) => {
+        setIsButtonExpanded((prevState) => !prevState);
+    };
+    const onSetMovieHandler = (event) => {
+        const database = getDatabase(app);
+        const movieToSave = {};
+        movieToSave[
+            `${props.user.uid}/${event.target.textContent.replaceAll(
+                " ",
+                "_"
+            )}/${props.movieInfo.Title}`
+        ] = props.movieInfo.imdbID;
+        update(ref(database), movieToSave);
+    };
     return (
         <div className={styles.container}>
             <div>
@@ -32,7 +50,34 @@ const MovieSite = (props) => {
                 </div>
                 {props.user ? (
                     <div className={styles["add-to-list"]}>
-                        <GreenButton>Add to list</GreenButton>
+                        <GreenButton
+                            className={styles["add-to-list-btn"]}
+                            button={{ onClick: onAddToListHandler }}
+                        >
+                            Add to list
+                        </GreenButton>
+                        {isButtonExpanded && (
+                            <>
+                                <GreenButton
+                                    button={{ onClick: onSetMovieHandler }}
+                                    className={styles["setting-btn"]}
+                                >
+                                    Set as watched
+                                </GreenButton>
+                                <GreenButton
+                                    button={{ onClick: onSetMovieHandler }}
+                                    className={styles["setting-btn"]}
+                                >
+                                    Set as planned
+                                </GreenButton>
+                                <GreenButton
+                                    button={{ onClick: onSetMovieHandler }}
+                                    className={styles["setting-btn"]}
+                                >
+                                    Set as currently watching
+                                </GreenButton>
+                            </>
+                        )}
                     </div>
                 ) : (
                     ""

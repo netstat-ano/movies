@@ -1,6 +1,6 @@
 import Header from "./components/layout/Header/Header";
 import styles from "./App.module.scss";
-import Content from "./components/layout/content/Content";
+import Content from "./components/layout/Content/Content";
 import Searchbar from "./components/Searchbar/Searchbar";
 import MovieSite from "./components/UI/MovieSite/MovieSite";
 import Profile from "./components/Profile/Profile";

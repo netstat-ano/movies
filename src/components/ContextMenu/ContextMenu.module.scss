@@ -1,0 +1,12 @@
+.context-menu {
+    position: absolute;
+    background-color: white;
+    width: 10%;
+    min-width: 60px;
+}
+.context-menu-item {
+    padding: 0.25rem;
+    &:hover {
+        cursor: pointer;
+    }
+}

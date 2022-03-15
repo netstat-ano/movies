@@ -27,6 +27,17 @@
 .add-to-list {
     margin-top: 4rem;
 }
+.setting-btn {
+    font-size: 1rem;
+    display: block;
+    border-radius: 0;
+    &:hover {
+        background-color: #24bb63;
+    }
+}
+.add-to-list-btn {
+    border-radius: 0.25rem 0.25rem 0 0;
+}
 @media only screen and (max-width: 767px) {
     .rating {
         font-size: 1.4rem;

@@ -3,10 +3,12 @@ import GreenButton from "../UI/GreenButton/GreenButton";
 import styles from "./SignInForm.module.scss";
 import app from "../../firebase";
 import {
+    updateProfile,
     getAuth,
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
 } from "firebase/auth";
+import { getDatabase, set, ref } from "firebase/database";
 import { useRef, useState } from "react";
 const SignInForm = (props) => {
     const usernameRef = useRef();
@@ -61,13 +63,19 @@ const SignInForm = (props) => {
             validateResult = { ...validateResult, email: false };
         }
 
-        if (retypeEmailRef.current.value === emailRef.current.value) {
+        if (
+            retypeEmailRef.current &&
+            retypeEmailRef.current.value === emailRef.current.value
+        ) {
             validateResult = { ...validateResult, retypeEmail: true };
         } else {
             validateResult = { ...validateResult, retypeEmail: false };
         }
 
-        if (usernameRef.current.value.trim().length >= 4) {
+        if (
+            usernameRef.current &&
+            usernameRef.current.value.trim().length >= 4
+        ) {
             validateResult = { ...validateResult, username: true };
         } else {
             validateResult = { ...validateResult, username: false };
@@ -85,7 +93,10 @@ const SignInForm = (props) => {
             validateResult = { ...validateResult, password: false };
         }
 
-        if (retypePasswordRef.current.value === passwordRef.current.value) {
+        if (
+            retypePasswordRef.current &&
+            retypePasswordRef.current.value === passwordRef.current.value
+        ) {
             validateResult = { ...validateResult, retypePassword: true };
         } else {
             validateResult = { ...validateResult, retypePassword: false };
@@ -98,13 +109,17 @@ const SignInForm = (props) => {
         event.preventDefault();
         const auth = getAuth(app);
         validate();
+        const database = getDatabase(app);
         if (status === "signin") {
             if (validation.password && validation.email) {
                 signInWithEmailAndPassword(
                     auth,
                     emailRef.current.value,
                     passwordRef.current.value
-                );
+                ).then((userCredential) => {
+                    props.setUser(userCredential.user);
+                    onCloseForm();
+                });
             }
         } else {
             if (
@@ -118,7 +133,41 @@ const SignInForm = (props) => {
                     auth,
                     emailRef.current.value,
                     passwordRef.current.value
-                );
+                ).then((userCredential) => {
+                    props.setUser(userCredential.user);
+                    updateProfile(userCredential.user, {
+                        displayName: usernameRef.current.value,
+                    }).then(() => {
+                        set(
+                            ref(
+                                database,
+                                `${userCredential.user.uid}/Set_as_watched`
+                            ),
+                            {
+                                init: true,
+                            }
+                        );
+                        set(
+                            ref(
+                                database,
+                                `${userCredential.user.uid}/Set_as_planned`
+                            ),
+                            {
+                                init: true,
+                            }
+                        );
+                        set(
+                            ref(
+                                database,
+                                `${userCredential.user.uid}/Set_as_currently_watching`
+                            ),
+                            {
+                                init: true,
+                            }
+                        );
+                        onCloseForm();
+                    });
+                });
             }
         }
     };
