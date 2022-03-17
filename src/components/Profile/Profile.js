@@ -26,6 +26,7 @@ const Profile = (props) => {
             </div>
             {isContextMenuShowed && (
                 <ContextMenu
+                    setProfileSite={props.setProfileSite}
                     setUser={props.setUser}
                     setIsContextMenuShowed={setIsContextMenuShowed}
                 />

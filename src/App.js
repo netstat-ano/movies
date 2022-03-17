@@ -9,23 +9,35 @@ function App() {
     const [isSearchingActive, setIsSearchingActive] = useState(false);
     const [movie, setMovie] = useState("");
     const [user, setUser] = useState(null);
+    const [profileSite, setProfileSite] = useState(null);
     return (
         <div className={styles.app}>
             <div className={`${!isSearchingActive && styles.header}`}>
-                {!isSearchingActive && <Header setMovie={setMovie} />}
+                {!isSearchingActive && (
+                    <Header
+                        setProfileSite={setProfileSite}
+                        setMovie={setMovie}
+                    />
+                )}
                 <Searchbar
                     setMovie={setMovie}
                     isSearchingActive={isSearchingActive}
                     setIsSearchingActive={setIsSearchingActive}
                 />
                 {!isSearchingActive && (
-                    <Profile setUser={setUser} user={user} />
+                    <Profile
+                        setProfileSite={setProfileSite}
+                        setUser={setUser}
+                        user={user}
+                    />
                 )}
             </div>
             {movie && !isSearchingActive && (
                 <MovieSite user={user} setMovie={setMovie} movieInfo={movie} />
             )}
-            {!isSearchingActive && !movie && <Content />}
+            {!isSearchingActive && !movie && (
+                <Content user={user} profileSite={profileSite} />
+            )}
         </div>
     );
 }

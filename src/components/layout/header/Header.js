@@ -2,6 +2,7 @@ import styles from "./Header.module.scss";
 const Header = (props) => {
     const redirectToHome = (event) => {
         props.setMovie("");
+        props.setProfileSite(null);
     };
     return (
         <div className={styles.header}>

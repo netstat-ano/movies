@@ -54,7 +54,7 @@ const MovieSite = (props) => {
                             className={styles["add-to-list-btn"]}
                             button={{ onClick: onAddToListHandler }}
                         >
-                            Add to list
+                            Add to list +
                         </GreenButton>
                         {isButtonExpanded && (
                             <>
