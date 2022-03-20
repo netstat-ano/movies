@@ -4,6 +4,8 @@ import styles from "./ContextMenu.module.scss";
 const ContextMenu = (props) => {
     const onShowProfileHandler = (event) => {
         props.setProfileSite(true);
+        props.setMovie("");
+        props.setIsContextMenuShowed(false);
     };
     const onLogoutHandler = (event) => {
         const data = getAuth(app);

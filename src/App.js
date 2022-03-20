@@ -26,6 +26,7 @@ function App() {
                 />
                 {!isSearchingActive && (
                     <Profile
+                        setMovie={setMovie}
                         setProfileSite={setProfileSite}
                         setUser={setUser}
                         user={user}

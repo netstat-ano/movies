@@ -1,7 +1,7 @@
 import styles from "./MovieSite.module.scss";
 import Raiting from "../Raiting/Raiting";
 import GreenButton from "../GreenButton/GreenButton";
-import { getDatabase, update, ref } from "firebase/database";
+import { getDatabase, update, ref, get, set } from "firebase/database";
 import app from "../../../firebase";
 import { useState } from "react";
 const MovieSite = (props) => {
@@ -12,13 +12,28 @@ const MovieSite = (props) => {
     };
     const onSetMovieHandler = (event) => {
         const database = getDatabase(app);
+        const path = event.target.textContent.replaceAll(" ", "_");
         const movieToSave = {};
-        movieToSave[
-            `${props.user.uid}/${event.target.textContent.replaceAll(
-                " ",
-                "_"
-            )}/${props.movieInfo.Title}`
-        ] = props.movieInfo.imdbID;
+        get(ref(database, `${props.user.uid}`)).then((response) => {
+            const responseValue = response.val();
+            for (const response in responseValue) {
+                if (response !== path) {
+                    for (const element in responseValue[`${response}`]) {
+                        if (element === props.movieInfo.Title) {
+                            set(
+                                ref(
+                                    database,
+                                    `${props.user.uid}/${response}/${element}`
+                                ),
+                                {}
+                            );
+                        }
+                    }
+                }
+            }
+        });
+        movieToSave[`${props.user.uid}/${path}/${props.movieInfo.Title}`] =
+            props.movieInfo.imdbID;
         update(ref(database), movieToSave);
     };
     return (

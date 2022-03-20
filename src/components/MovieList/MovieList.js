@@ -73,13 +73,27 @@ const MovieList = (props) => {
             </div>
             {currentlyWatching.map((element) => {
                 return (
-                    <MovieRow setMovie={props.setMovie} movieInfo={element} />
+                    <MovieRow
+                        state={currentlyWatching}
+                        setState={setCurrentlyWatching}
+                        user={props.user}
+                        path={"Set_as_currently_watching"}
+                        setMovie={props.setMovie}
+                        movieInfo={element}
+                    />
                 );
             })}
             <div className={`${styles.header} ${styles.planned}`}>Planned:</div>
             {plannedWatching.map((element) => {
                 return (
-                    <MovieRow setMovie={props.setMovie} movieInfo={element} />
+                    <MovieRow
+                        state={plannedWatching}
+                        setState={setPlannedWatching}
+                        user={props.user}
+                        path={"Set_as_planned"}
+                        setMovie={props.setMovie}
+                        movieInfo={element}
+                    />
                 );
             })}
             <div className={`${styles.header} ${styles.completed}`}>
@@ -87,7 +101,14 @@ const MovieList = (props) => {
             </div>
             {completed.map((element) => {
                 return (
-                    <MovieRow setMovie={props.setMovie} movieInfo={element} />
+                    <MovieRow
+                        state={completed}
+                        setState={setCompleted}
+                        user={props.user}
+                        path={"Set_as_watched"}
+                        setMovie={props.setMovie}
+                        movieInfo={element}
+                    />
                 );
             })}
         </div>
