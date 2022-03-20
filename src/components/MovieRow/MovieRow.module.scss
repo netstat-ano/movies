@@ -1,0 +1,16 @@
+.movie-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.delete {
+    &:hover {
+        cursor: pointer;
+        color: red;
+    }
+}
+.title {
+    &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+}

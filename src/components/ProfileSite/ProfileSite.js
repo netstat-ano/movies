@@ -1,11 +1,14 @@
 import styles from "./ProfileSite.module.scss";
 import defaultAvatar from "../../assets/img/default-avatar.jpg";
 import app from "../../firebase";
+import Tabs from "../Tabs/Tabs";
 import { get, getDatabase, ref } from "firebase/database";
 import { useEffect, useState } from "react";
-import { VictoryPie } from "victory-pie";
+import MovieList from "../MovieList/MovieList";
+import Overview from "../Overview/Overview";
 const ProfileSite = (props) => {
     const [chartList, setChartList] = useState(null);
+    const [selectedTab, setSelectedTab] = useState("Overview");
     useEffect(() => {
         console.log(chartList);
         const database = getDatabase(app);
@@ -35,7 +38,7 @@ const ProfileSite = (props) => {
                 },
             ]);
         });
-    }, []);
+    }, [props.user.uid]);
     const avatar = props.user.photoURL ? (
         <img className={styles.avatar} src={props.user.photoURL}></img>
     ) : (
@@ -47,12 +50,18 @@ const ProfileSite = (props) => {
                 <div className={styles.username}>{props.user.displayName}</div>
                 <div className={styles["avatar-container"]}>{avatar}</div>
             </div>
-            <div className={styles.chart}>
-                <VictoryPie
-                    colorScale={["#28a745", "#6c757d", "#007bff"]}
-                    width={1000}
-                    data={chartList}
-                />
+            <Tabs
+                selectedTab={selectedTab}
+                setSelectedTab={setSelectedTab}
+                content={["Overview", "Movie list", "Favourites"]}
+            />
+            <div className={styles.content}>
+                {selectedTab === "Overview" && (
+                    <Overview chartList={chartList} />
+                )}
+                {selectedTab === "Movie list" && (
+                    <MovieList setMovie={props.setMovie} user={props.user} />
+                )}
             </div>
         </div>
     );

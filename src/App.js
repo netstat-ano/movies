@@ -36,7 +36,11 @@ function App() {
                 <MovieSite user={user} setMovie={setMovie} movieInfo={movie} />
             )}
             {!isSearchingActive && !movie && (
-                <Content user={user} profileSite={profileSite} />
+                <Content
+                    setMovie={setMovie}
+                    user={user}
+                    profileSite={profileSite}
+                />
             )}
         </div>
     );

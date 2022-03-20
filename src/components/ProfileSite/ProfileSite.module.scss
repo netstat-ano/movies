@@ -1,11 +1,21 @@
-.profile-site {
-    display: grid;
-    grid-template-columns: 20% 80%;
-}
 .avatar {
-    width: 100px;
+    width: 200px;
 }
-.chart {
-    width: 700px;
-    margin: 0;
+.username {
+    padding: 0.5rem;
+    font-size: 1.2rem;
+}
+.content {
+    width: 100vw;
+    background-color: white;
+}
+@media only screen and (max-width: 1024px) {
+    .chart {
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 425px) {
+    .chart {
+        font-size: 2rem !important;
+    }
 }

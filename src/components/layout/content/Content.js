@@ -9,7 +9,9 @@ const Content = (props) => {
                     <div>Latest reviews: </div>
                 </div>
             )}
-            {props.profileSite && <ProfileSite user={props.user} />}
+            {props.profileSite && (
+                <ProfileSite setMovie={props.setMovie} user={props.user} />
+            )}
         </div>
     );
 };
