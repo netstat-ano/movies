@@ -3,10 +3,22 @@
 }
 .current {
     color: #007bff;
+    padding-top: 1rem;
+    padding-left: 0.5rem;
 }
 .planned {
     color: #6c757d;
+    padding-top: 1rem;
+    padding-left: 0.5rem;
 }
 .completed {
     color: #28a745;
+    padding-top: 1rem;
+    padding-left: 0.5rem;
+}
+.heading {
+    font-size: 1.3rem;
+    padding: 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 }

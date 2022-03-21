@@ -60,7 +60,11 @@ const ProfileSite = (props) => {
                     <Overview chartList={chartList} />
                 )}
                 {selectedTab === "Movie list" && (
-                    <MovieList setMovie={props.setMovie} user={props.user} />
+                    <MovieList
+                        setChartList={setChartList}
+                        setMovie={props.setMovie}
+                        user={props.user}
+                    />
                 )}
             </div>
         </div>

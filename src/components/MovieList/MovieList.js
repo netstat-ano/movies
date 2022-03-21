@@ -68,12 +68,18 @@ const MovieList = (props) => {
 
     return (
         <div>
+            <div className={styles.heading}>
+                <div>Title</div>
+                <div>Release date</div>
+                <div>Rating</div>
+            </div>
             <div className={`${styles.header} ${styles.current}`}>
                 Currently watching:{" "}
             </div>
             {currentlyWatching.map((element) => {
                 return (
                     <MovieRow
+                        setChartList={props.setChartList}
                         state={currentlyWatching}
                         setState={setCurrentlyWatching}
                         user={props.user}
@@ -87,6 +93,7 @@ const MovieList = (props) => {
             {plannedWatching.map((element) => {
                 return (
                     <MovieRow
+                        setChartList={props.setChartList}
                         state={plannedWatching}
                         setState={setPlannedWatching}
                         user={props.user}
@@ -102,6 +109,7 @@ const MovieList = (props) => {
             {completed.map((element) => {
                 return (
                     <MovieRow
+                        setChartList={props.setChartList}
                         state={completed}
                         setState={setCompleted}
                         user={props.user}

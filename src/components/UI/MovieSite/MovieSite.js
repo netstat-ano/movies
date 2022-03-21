@@ -35,6 +35,7 @@ const MovieSite = (props) => {
         movieToSave[`${props.user.uid}/${path}/${props.movieInfo.Title}`] =
             props.movieInfo.imdbID;
         update(ref(database), movieToSave);
+        setIsButtonExpanded(false);
     };
     return (
         <div className={styles.container}>
