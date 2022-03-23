@@ -16,7 +16,7 @@ const MovieList = (props) => {
     }, []);
 
     useEffect(() => {
-        console.log(movies);
+        const database = getDatabase(app);
         if (movies !== null) {
             for (const element in movies["Set_as_currently_watching"]) {
                 if (element !== "init") {
@@ -27,8 +27,20 @@ const MovieList = (props) => {
                     )
                         .then((response) => response.json())
                         .then((data) => {
-                            setCurrentlyWatching((prevState) => {
-                                return [data, ...prevState];
+                            get(
+                                ref(database, `${props.user.uid}/favourites`)
+                            ).then((response) => {
+                                const responseVal = response.val();
+                                let isFavourite = false;
+                                for (const element in responseVal) {
+                                    if (element === data.Title) {
+                                        isFavourite = true;
+                                    }
+                                }
+                                data.isFavourite = isFavourite;
+                                setCurrentlyWatching((prevState) => {
+                                    return [data, ...prevState];
+                                });
                             });
                         });
                 }
@@ -42,8 +54,20 @@ const MovieList = (props) => {
                     )
                         .then((response) => response.json())
                         .then((data) => {
-                            setPlannedWatching((prevState) => {
-                                return [data, ...prevState];
+                            get(
+                                ref(database, `${props.user.uid}/favourites`)
+                            ).then((response) => {
+                                const responseVal = response.val();
+                                let isFavourite = false;
+                                for (const element in responseVal) {
+                                    if (element === data.Title) {
+                                        isFavourite = true;
+                                    }
+                                }
+                                data.isFavourite = isFavourite;
+                                setPlannedWatching((prevState) => {
+                                    return [data, ...prevState];
+                                });
                             });
                         });
                 }
@@ -57,8 +81,20 @@ const MovieList = (props) => {
                     )
                         .then((response) => response.json())
                         .then((data) => {
-                            setCompleted((prevState) => {
-                                return [data, ...prevState];
+                            get(
+                                ref(database, `${props.user.uid}/favourites`)
+                            ).then((response) => {
+                                const responseVal = response.val();
+                                let isFavourite = false;
+                                for (const element in responseVal) {
+                                    if (element === data.Title) {
+                                        isFavourite = true;
+                                    }
+                                }
+                                data.isFavourite = isFavourite;
+                                setCompleted((prevState) => {
+                                    return [data, ...prevState];
+                                });
                             });
                         });
                 }
@@ -79,6 +115,7 @@ const MovieList = (props) => {
             {currentlyWatching.map((element) => {
                 return (
                     <MovieRow
+                        isFavourite={element.isFavourite}
                         setChartList={props.setChartList}
                         state={currentlyWatching}
                         setState={setCurrentlyWatching}
@@ -93,6 +130,7 @@ const MovieList = (props) => {
             {plannedWatching.map((element) => {
                 return (
                     <MovieRow
+                        isFavourite={element.isFavourite}
                         setChartList={props.setChartList}
                         state={plannedWatching}
                         setState={setPlannedWatching}
@@ -109,6 +147,7 @@ const MovieList = (props) => {
             {completed.map((element) => {
                 return (
                     <MovieRow
+                        isFavourite={element.isFavourite}
                         setChartList={props.setChartList}
                         state={completed}
                         setState={setCompleted}

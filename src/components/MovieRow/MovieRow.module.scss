@@ -15,9 +15,16 @@
         text-decoration: underline;
     }
 }
+.gold {
+    &:hover {
+        color: #ebd037;
+        cursor: pointer;
+    }
+}
 .star {
     color: #ebd037;
     &:hover {
         cursor: pointer;
+        color: black;
     }
 }

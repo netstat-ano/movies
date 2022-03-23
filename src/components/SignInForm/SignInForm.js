@@ -165,6 +165,15 @@ const SignInForm = (props) => {
                                 init: true,
                             }
                         );
+                        set(
+                            ref(
+                                database,
+                                `${userCredential.user.uid}/favourites`
+                            ),
+                            {
+                                init: true,
+                            }
+                        );
                         onCloseForm();
                     });
                 });

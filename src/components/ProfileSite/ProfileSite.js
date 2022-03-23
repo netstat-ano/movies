@@ -6,6 +6,7 @@ import { get, getDatabase, ref } from "firebase/database";
 import { useEffect, useState } from "react";
 import MovieList from "../MovieList/MovieList";
 import Overview from "../Overview/Overview";
+import Favourites from "../Favourites/Favourites";
 const ProfileSite = (props) => {
     const [chartList, setChartList] = useState(null);
     const [selectedTab, setSelectedTab] = useState("Overview");
@@ -65,6 +66,9 @@ const ProfileSite = (props) => {
                         setMovie={props.setMovie}
                         user={props.user}
                     />
+                )}
+                {selectedTab === "Favourites" && (
+                    <Favourites user={props.user} />
                 )}
             </div>
         </div>

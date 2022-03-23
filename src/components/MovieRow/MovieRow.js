@@ -1,13 +1,43 @@
 import styles from "./MovieRow.module.scss";
-import { ref, getDatabase, set } from "firebase/database";
+import { ref, getDatabase, set, update } from "firebase/database";
 import app from "../../firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { faStar } from "@fortawesome/free-regular-svg-icons";
 import { faStar as faStarSolid } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const MovieRow = (props) => {
     const [isMouseOver, setIsMouseOver] = useState(false);
+    const [isFavourite, setIsFavourite] = useState(props.isFavourite);
+    const onStarClickHandler = (event) => {
+        if (props.isFavourite === false) {
+            setIsFavourite(true);
+            const database = getDatabase(app);
+            const movieToFavourites = {};
+            movieToFavourites[
+                `/${props.user.uid}/favourites/${props.movieInfo.Title}`
+            ] = props.movieInfo.imdbID;
+            update(ref(database), movieToFavourites);
+        } else {
+            setIsFavourite(false);
+            const database = getDatabase(app);
+            if (props.favouritesList) {
+                props.setFavouritesList((prevState) => {
+                    return prevState.filter((value) => {
+                        return value["Title"] !== props.movieInfo.Title;
+                    });
+                });
+            }
+            set(
+                ref(
+                    database,
+                    `${props.user.uid}/favourites/${props.movieInfo.Title}`
+                ),
+                {}
+            );
+        }
+    };
+
     const onTitleClickHandler = (event) => {
         props.setMovie(props.movieInfo);
     };
@@ -49,6 +79,7 @@ const MovieRow = (props) => {
             });
         });
     };
+
     return (
         <div className={styles["movie-row"]}>
             <div>
@@ -65,13 +96,14 @@ const MovieRow = (props) => {
             </div>
             <div>
                 <span
-                    className={isMouseOver ? styles.star : ""}
+                    onClick={onStarClickHandler}
+                    className={`${!isFavourite && styles.gold} ${
+                        isFavourite && styles.star
+                    }`}
                     onMouseLeave={onMouseLeaveHandler}
                     onMouseOver={onMouseHoverHandler}
                 >
-                    <FontAwesomeIcon
-                        icon={isMouseOver ? faStarSolid : faStar}
-                    />
+                    <FontAwesomeIcon icon={faStarSolid} />
                 </span>
             </div>
         </div>
