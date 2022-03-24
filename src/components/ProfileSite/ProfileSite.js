@@ -7,9 +7,31 @@ import { useEffect, useState } from "react";
 import MovieList from "../MovieList/MovieList";
 import Overview from "../Overview/Overview";
 import Favourites from "../Favourites/Favourites";
+import {
+    getStorage,
+    uploadBytes,
+    ref as sRef,
+    getDownloadURL,
+} from "firebase/storage";
 const ProfileSite = (props) => {
     const [chartList, setChartList] = useState(null);
     const [selectedTab, setSelectedTab] = useState("Overview");
+    const [userAvatar, setUserAvatar] = useState(defaultAvatar);
+    const fetchAvatar = (event) => {
+        const storage = getStorage(app);
+        const storageRef = sRef(storage, `${props.user.uid}/avatar`);
+        getDownloadURL(storageRef).then((url) => {
+            setUserAvatar(url);
+        });
+    };
+    const onChangeAvatarHandler = (event) => {
+        const storage = getStorage(app);
+        const storageRef = sRef(storage, `${props.user.uid}/avatar`);
+        uploadBytes(storageRef, event.target.files[0]).then(() => {
+            fetchAvatar();
+        });
+    };
+
     useEffect(() => {
         console.log(chartList);
         const database = getDatabase(app);
@@ -39,17 +61,36 @@ const ProfileSite = (props) => {
                 },
             ]);
         });
+        fetchAvatar();
     }, [props.user.uid]);
-    const avatar = props.user.photoURL ? (
-        <img className={styles.avatar} src={props.user.photoURL}></img>
-    ) : (
-        <img className={styles.avatar} src={defaultAvatar}></img>
-    );
+
     return (
         <div className={styles["profile-site"]}>
-            <div>
+            <div className={styles["profile-header"]}>
                 <div className={styles.username}>{props.user.displayName}</div>
-                <div className={styles["avatar-container"]}>{avatar}</div>
+                <div className={styles["container"]}>
+                    <div className={styles["avatar-container"]}>
+                        <img className={styles.avatar} src={userAvatar}></img>
+                        <div className={styles["img-overlay"]}>
+                            <div className={styles["change-avatar"]}>
+                                <input
+                                    onChange={onChangeAvatarHandler}
+                                    type="file"
+                                    id="file"
+                                    accept="image/png, image/jpeg"
+                                    style={{ display: "none" }}
+                                ></input>
+                                <label htmlFor="file">
+                                    <span
+                                        className={styles["change-avatar-btn"]}
+                                    >
+                                        Change avatar
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <Tabs
                 selectedTab={selectedTab}

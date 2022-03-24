@@ -9,7 +9,9 @@ const Tabs = (props) => {
                 <div
                     onClick={onClickHandler}
                     className={`${
-                        props.selectedTab === el ? styles.selected : ""
+                        props.selectedTab === el
+                            ? styles.selected
+                            : styles["not-selected"]
                     } ${styles["tab-element"]}`}
                 >
                     {el}

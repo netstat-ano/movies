@@ -97,9 +97,7 @@ const MovieRow = (props) => {
             <div>
                 <span
                     onClick={onStarClickHandler}
-                    className={`${!isFavourite && styles.gold} ${
-                        isFavourite && styles.star
-                    }`}
+                    className={`${isFavourite ? styles.star : styles.gold}`}
                     onMouseLeave={onMouseLeaveHandler}
                     onMouseOver={onMouseHoverHandler}
                 >
