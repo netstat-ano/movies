@@ -36,6 +36,7 @@ const Profile = (props) => {
                 <OverlayPortal
                     content={[
                         <SignInForm
+                            key="signin"
                             setIsFormShowed={setIsFormShowed}
                             setUser={props.setUser}
                         />,

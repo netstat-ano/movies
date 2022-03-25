@@ -7,6 +7,7 @@ const Tabs = (props) => {
         <div className={styles.tabs}>
             {props.content.map((el) => (
                 <div
+                    key={el}
                     onClick={onClickHandler}
                     className={`${
                         props.selectedTab === el

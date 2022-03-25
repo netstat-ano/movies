@@ -30,6 +30,7 @@ const Favourites = (props) => {
             {favouritesList.map((value) => {
                 return (
                     <MovieRow
+                        key={value.imdbID}
                         user={props.user}
                         setFavouritesList={setFavouritesList}
                         favouritesList={favouritesList}

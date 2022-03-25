@@ -115,6 +115,7 @@ const MovieList = (props) => {
             {currentlyWatching.map((element) => {
                 return (
                     <MovieRow
+                        key={element.imdbID}
                         isFavourite={element.isFavourite}
                         setChartList={props.setChartList}
                         state={currentlyWatching}
@@ -130,6 +131,7 @@ const MovieList = (props) => {
             {plannedWatching.map((element) => {
                 return (
                     <MovieRow
+                        key={element.imdbID}
                         isFavourite={element.isFavourite}
                         setChartList={props.setChartList}
                         state={plannedWatching}
@@ -147,6 +149,7 @@ const MovieList = (props) => {
             {completed.map((element) => {
                 return (
                     <MovieRow
+                        key={element.imdbID}
                         isFavourite={element.isFavourite}
                         setChartList={props.setChartList}
                         state={completed}

@@ -5,10 +5,10 @@ const Raiting = (props) => {
     const difference = props.rate + 1 - props.rate;
     const resultJSX = [];
     for (let i = 0; i < Math.floor(props.rate); i++) {
-        resultJSX.push(<FontAwesomeIcon icon={faStar} />);
+        resultJSX.push(<FontAwesomeIcon key={i} icon={faStar} />);
     }
     if (props.rate / 1 !== 0 && difference >= 0.5) {
-        resultJSX.push(<FontAwesomeIcon icon={faStarHalf} />);
+        resultJSX.push(<FontAwesomeIcon key="0.5" icon={faStarHalf} />);
     }
     return <div className={styles.star}>{resultJSX.map((star) => star)}</div>;
 };

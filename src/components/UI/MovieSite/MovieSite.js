@@ -5,7 +5,6 @@ import { getDatabase, update, ref, get, set } from "firebase/database";
 import app from "../../../firebase";
 import { useState } from "react";
 const MovieSite = (props) => {
-    console.log(props.movieInfo);
     const [isButtonExpanded, setIsButtonExpanded] = useState(false);
     const onAddToListHandler = (event) => {
         setIsButtonExpanded((prevState) => !prevState);

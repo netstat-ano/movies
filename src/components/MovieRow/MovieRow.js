@@ -7,7 +7,6 @@ import { faStar } from "@fortawesome/free-regular-svg-icons";
 import { faStar as faStarSolid } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 const MovieRow = (props) => {
-    const [isMouseOver, setIsMouseOver] = useState(false);
     const [isFavourite, setIsFavourite] = useState(props.isFavourite);
     const onStarClickHandler = (event) => {
         if (props.isFavourite === false) {
@@ -41,12 +40,7 @@ const MovieRow = (props) => {
     const onTitleClickHandler = (event) => {
         props.setMovie(props.movieInfo);
     };
-    const onMouseHoverHandler = (event) => {
-        setIsMouseOver(true);
-    };
-    const onMouseLeaveHandler = (event) => {
-        setIsMouseOver(false);
-    };
+
     const onDeleteMovieHandler = (event) => {
         const database = getDatabase(app);
         set(
@@ -98,8 +92,6 @@ const MovieRow = (props) => {
                 <span
                     onClick={onStarClickHandler}
                     className={`${isFavourite ? styles.star : styles.gold}`}
-                    onMouseLeave={onMouseLeaveHandler}
-                    onMouseOver={onMouseHoverHandler}
                 >
                     <FontAwesomeIcon icon={faStarSolid} />
                 </span>

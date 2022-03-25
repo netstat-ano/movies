@@ -16,13 +16,17 @@ import {
 const ProfileSite = (props) => {
     const [chartList, setChartList] = useState(null);
     const [selectedTab, setSelectedTab] = useState("Overview");
-    const [userAvatar, setUserAvatar] = useState(defaultAvatar);
+    const [userAvatar, setUserAvatar] = useState();
     const fetchAvatar = (event) => {
         const storage = getStorage(app);
         const storageRef = sRef(storage, `${props.user.uid}/avatar`);
-        getDownloadURL(storageRef).then((url) => {
-            setUserAvatar(url);
-        });
+        getDownloadURL(storageRef)
+            .then((url) => {
+                setUserAvatar(url);
+            })
+            .catch((e) => {
+                setUserAvatar(defaultAvatar);
+            });
     };
     const onChangeAvatarHandler = (event) => {
         const storage = getStorage(app);
@@ -33,7 +37,6 @@ const ProfileSite = (props) => {
     };
 
     useEffect(() => {
-        console.log(chartList);
         const database = getDatabase(app);
         get(ref(database, `${props.user.uid}`)).then((response) => {
             const value = response.val();
