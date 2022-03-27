@@ -1,0 +1,26 @@
+.textarea {
+    resize: none;
+    outline: none;
+    width: 50%;
+    font-size: 1.1rem;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.btn {
+    font-size: 1rem;
+}
+.edit-biogram {
+    color: #17a2b8;
+    &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+.biogram-text {
+    font-size: 1.3rem;
+    padding: 1rem;
+}

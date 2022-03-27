@@ -102,7 +102,7 @@ const ProfileSite = (props) => {
             />
             <div className={styles.content}>
                 {selectedTab === "Overview" && (
-                    <Overview chartList={chartList} />
+                    <Overview user={props.user} chartList={chartList} />
                 )}
                 {selectedTab === "Movie list" && (
                     <MovieList
