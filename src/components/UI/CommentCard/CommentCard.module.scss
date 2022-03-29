@@ -28,5 +28,12 @@
 .likes-amount {
     position: absolute;
     font-size: 0.8rem;
-    margin-left: 14px;
+    margin-left: 16px;
+}
+.delete {
+    margin-left: 0.5rem;
+    &:hover {
+        color: red;
+        cursor: pointer;
+    }
 }

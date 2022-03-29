@@ -59,6 +59,7 @@ const Comments = (props) => {
             {comment.map((data) => {
                 return (
                     <CommentCard
+                        setComment={setComment}
                         user={props.user}
                         key={data.commentID}
                         isLiked={data.isLiked}

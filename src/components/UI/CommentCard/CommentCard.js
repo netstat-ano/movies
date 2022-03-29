@@ -1,7 +1,8 @@
 import styles from "./CommentCard.module.scss";
 import Card from "../Card/Card";
-import { ref, update, getDatabase } from "firebase/database";
+import { set, ref, update, getDatabase } from "firebase/database";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
@@ -20,7 +21,24 @@ const CommentCard = (props) => {
         }
         return faHeart;
     });
+    const [isUserCommentOwner, setIsUserCommentOwner] = useState(() => {
+        if (props.user.uid === props.content.commentOwner) {
+            return true;
+        }
+        return false;
+    });
     const [isLiked, setIsLiked] = useState(props.isLiked);
+
+    const onDeleteCommentHandler = (event) => {
+        const database = getDatabase(app);
+        set(ref(database, `comments/movies/${props.content.commentID}`), {});
+        props.setComment((prevState) => {
+            return prevState.filter((comment) => {
+                return comment.commentID !== props.content.commentID;
+            });
+        });
+    };
+
     const onLikeHandler = (event) => {
         if (!isLiked) {
             const database = getDatabase(app);
@@ -84,6 +102,14 @@ const CommentCard = (props) => {
                             )}
                             <FontAwesomeIcon icon={icon} />
                         </span>
+                        {isUserCommentOwner && (
+                            <span
+                                onClick={onDeleteCommentHandler}
+                                className={styles.delete}
+                            >
+                                <FontAwesomeIcon icon={faTrash} />
+                            </span>
+                        )}
                     </div>
                 </div>
             </Card>

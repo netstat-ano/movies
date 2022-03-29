@@ -40,6 +40,7 @@ const InputComment = (props) => {
                 imdbID: props.movieInfo.imdbID,
                 likes: 0,
                 commentID: commentID,
+                commentOwner: props.user.uid,
             };
             const updates = {};
             updates[`comments/movies/${commentID}/${props.movieInfo.imdbID}`] =
