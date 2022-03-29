@@ -1,0 +1,25 @@
+.container {
+    grid-column: 1/4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.avatar {
+    width: 40px;
+}
+.textarea {
+    font-size: 1.1rem;
+    resize: none;
+    width: 50vw;
+    background-color: #f8f8f8;
+}
+.add-btn {
+    display: flex;
+    justify-content: flex-end;
+}
+@media only screen and (max-width: 767px) {
+    .container {
+        grid-column: 1 / 2;
+    }
+}

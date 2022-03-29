@@ -50,7 +50,7 @@ const Searchbar = (props) => {
                                     onMovieCardClickHandler(event, data);
                                 }}
                                 plot={data.Plot}
-                                key={element.Title}
+                                key={element.imdbID}
                                 {...element}
                             />,
                         ];

@@ -4,6 +4,7 @@ import GreenButton from "../GreenButton/GreenButton";
 import { getDatabase, update, ref, get, set } from "firebase/database";
 import app from "../../../firebase";
 import { useState } from "react";
+import Comments from "../../Comments/Comments";
 const MovieSite = (props) => {
     const [isButtonExpanded, setIsButtonExpanded] = useState(false);
     const onAddToListHandler = (event) => {
@@ -64,40 +65,45 @@ const MovieSite = (props) => {
                     <div>Director: {props.movieInfo.Director}</div>
                 </div>
                 {props.user ? (
-                    <div className={styles["add-to-list"]}>
-                        <GreenButton
-                            className={styles["add-to-list-btn"]}
-                            button={{ onClick: onAddToListHandler }}
-                        >
-                            Add to list +
-                        </GreenButton>
-                        {isButtonExpanded && (
-                            <>
-                                <GreenButton
-                                    button={{ onClick: onSetMovieHandler }}
-                                    className={styles["setting-btn"]}
-                                >
-                                    Set as watched
-                                </GreenButton>
-                                <GreenButton
-                                    button={{ onClick: onSetMovieHandler }}
-                                    className={styles["setting-btn"]}
-                                >
-                                    Set as planned
-                                </GreenButton>
-                                <GreenButton
-                                    button={{ onClick: onSetMovieHandler }}
-                                    className={styles["setting-btn"]}
-                                >
-                                    Set as currently watching
-                                </GreenButton>
-                            </>
-                        )}
-                    </div>
+                    <>
+                        <div className={styles["add-to-list"]}>
+                            <GreenButton
+                                className={styles["add-to-list-btn"]}
+                                button={{ onClick: onAddToListHandler }}
+                            >
+                                Add to list +
+                            </GreenButton>
+                            {isButtonExpanded && (
+                                <>
+                                    <GreenButton
+                                        button={{ onClick: onSetMovieHandler }}
+                                        className={styles["setting-btn"]}
+                                    >
+                                        Set as watched
+                                    </GreenButton>
+                                    <GreenButton
+                                        button={{ onClick: onSetMovieHandler }}
+                                        className={styles["setting-btn"]}
+                                    >
+                                        Set as planned
+                                    </GreenButton>
+                                    <GreenButton
+                                        button={{ onClick: onSetMovieHandler }}
+                                        className={styles["setting-btn"]}
+                                    >
+                                        Set as currently watching
+                                    </GreenButton>
+                                </>
+                            )}
+                        </div>
+                    </>
                 ) : (
                     ""
                 )}
             </div>
+            {props.user && (
+                <Comments user={props.user} movieInfo={props.movieInfo} />
+            )}
         </div>
     );
 };

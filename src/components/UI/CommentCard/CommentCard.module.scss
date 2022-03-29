@@ -1,0 +1,32 @@
+.container {
+    margin: 1rem;
+    grid-column: 1 / 4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.card {
+    padding: 0.5rem;
+    background-color: #f8f8f8;
+    width: 50%;
+}
+.username {
+    font-size: 1.3rem;
+    padding-bottom: 0.5rem;
+    font-weight: bold;
+}
+.text {
+    font-size: 1.1rem;
+}
+.heart {
+    color: red;
+    &:hover {
+        cursor: pointer;
+    }
+}
+.likes-amount {
+    position: absolute;
+    font-size: 0.8rem;
+    margin-left: 14px;
+}
