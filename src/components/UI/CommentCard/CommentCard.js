@@ -52,6 +52,14 @@ const CommentCard = (props) => {
             setLikes((prevState) => Number(prevState) + 1);
             setIcon(faHeartSolid);
             setIsLiked(true);
+            props.setComment((prevState) => {
+                return prevState.map((comment) => {
+                    if (comment.commentID === props.content.commentID) {
+                        comment.likes += 1;
+                    }
+                    return comment;
+                });
+            });
             update(ref(database), updates);
         } else {
             const database = getDatabase(app);
@@ -65,6 +73,14 @@ const CommentCard = (props) => {
             setLikes((prevState) => Number(prevState) - 1);
             setIsLiked(false);
             setIcon(faHeart);
+            props.setComment((prevState) => {
+                return prevState.map((comment) => {
+                    if (comment.commentID === props.content.commentID) {
+                        comment.likes -= 1;
+                    }
+                    return comment;
+                });
+            });
             update(ref(database), updates);
         }
     };
@@ -88,6 +104,7 @@ const CommentCard = (props) => {
                 <div className={styles.username}>{props.content.username}</div>
                 <div>
                     <div className={styles.text}>{props.content.text}</div>
+                    <div className={styles.date}>{props.content.date}</div>
                     <div>
                         <span
                             className={styles.heart}

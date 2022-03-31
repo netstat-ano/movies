@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import app from "../../firebase";
 import InputComment from "../InputComment/InputComment";
 import CommentCard from "../UI/CommentCard/CommentCard";
+import SortingComments from "../SortingComments/SortingComments";
 const Comments = (props) => {
     const [comment, setComment] = useState([]);
     useEffect(() => {
@@ -56,6 +57,7 @@ const Comments = (props) => {
                 setComment={setComment}
                 user={props.user}
             />
+            <SortingComments comment={comment} setComment={setComment} />
             {comment.map((data) => {
                 return (
                     <CommentCard

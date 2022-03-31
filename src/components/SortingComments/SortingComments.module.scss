@@ -1,0 +1,23 @@
+.container {
+    grid-column: 1 / 4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.items {
+    margin-left: 170px;
+    position: absolute;
+    background-color: white;
+}
+.item {
+    padding: 0.25rem;
+    &:hover {
+        cursor: pointer;
+        background-color: #dfdfdf;
+    }
+}
+.trigger {
+    &:hover {
+        cursor: pointer;
+    }
+}

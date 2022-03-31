@@ -34,13 +34,17 @@ const InputComment = (props) => {
         if (textareaRef.current.value.trim().length > 0) {
             const database = getDatabase(app);
             const commentID = createUniqueID();
+            const date = new Date();
+            const currentDate = `${date.getDate()}.${date.getMonth()}.${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
             const dataToSave = {
+                fullDate: date,
                 username: props.user.displayName,
                 text: textareaRef.current.value,
                 imdbID: props.movieInfo.imdbID,
                 likes: 0,
                 commentID: commentID,
                 commentOwner: props.user.uid,
+                date: currentDate,
             };
             const updates = {};
             updates[`comments/movies/${commentID}/${props.movieInfo.imdbID}`] =
