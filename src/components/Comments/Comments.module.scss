@@ -1,0 +1,8 @@
+.container {
+    grid-column: 1 /4;
+}
+@media only screen and (max-width: 767px) {
+    .container {
+        grid-column: 1 / 2;
+    }
+}

@@ -13,9 +13,13 @@ const MovieRow = (props) => {
             setIsFavourite(true);
             const database = getDatabase(app);
             const movieToFavourites = {};
+            const dataToSave = {
+                imdbID: props.movieInfo.imdbID,
+                path: props.path,
+            };
             movieToFavourites[
                 `/${props.user.uid}/favourites/${props.movieInfo.Title}`
-            ] = props.movieInfo.imdbID;
+            ] = dataToSave;
             update(ref(database), movieToFavourites);
         } else {
             setIsFavourite(false);
@@ -50,6 +54,13 @@ const MovieRow = (props) => {
             ),
             {}
         );
+        set(
+            ref(
+                database,
+                `${props.user.uid}/favourites/${props.movieInfo.Title}`
+            ),
+            {}
+        );
         props.setState((prevState) => {
             return prevState.filter(
                 (value) => value.Title !== props.movieInfo.Title
@@ -64,14 +75,16 @@ const MovieRow = (props) => {
             type = "Currently watching";
         }
 
-        props.setChartList((prevState) => {
-            return prevState.filter((value) => {
-                if (value.x[0] === type[0] && value.x[1] === type[1]) {
-                    value.y -= 1;
-                }
-                return value;
+        if (props.setChartList) {
+            props.setChartList((prevState) => {
+                return prevState.filter((value) => {
+                    if (value.x[0] === type[0] && value.x[1] === type[1]) {
+                        value.y -= 1;
+                    }
+                    return value;
+                });
             });
-        });
+        }
     };
 
     return (

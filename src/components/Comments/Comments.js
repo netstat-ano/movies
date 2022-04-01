@@ -4,6 +4,7 @@ import app from "../../firebase";
 import InputComment from "../InputComment/InputComment";
 import CommentCard from "../UI/CommentCard/CommentCard";
 import SortingComments from "../SortingComments/SortingComments";
+import styles from "./Comments.module.scss";
 const Comments = (props) => {
     const [comment, setComment] = useState([]);
     useEffect(() => {
@@ -51,7 +52,7 @@ const Comments = (props) => {
         });
     }, []);
     return (
-        <>
+        <div className={styles.container}>
             <InputComment
                 movieInfo={props.movieInfo}
                 setComment={setComment}
@@ -70,7 +71,7 @@ const Comments = (props) => {
                     />
                 );
             })}
-        </>
+        </div>
     );
 };
 export default Comments;

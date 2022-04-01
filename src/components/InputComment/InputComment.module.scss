@@ -21,5 +21,9 @@
 @media only screen and (max-width: 767px) {
     .container {
         grid-column: 1 / 2;
+        margin-top: 2rem;
+    }
+    .textarea {
+        width: 60vw;
     }
 }
