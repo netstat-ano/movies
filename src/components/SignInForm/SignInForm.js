@@ -17,6 +17,7 @@ const SignInForm = (props) => {
     const passwordRef = useRef();
     const retypePasswordRef = useRef();
 
+    const [firebaseError, setFirebaseError] = useState("");
     const [status, setStatus] = useState("signin");
     const [validation, setValidation] = useState({
         email: true,
@@ -31,6 +32,7 @@ const SignInForm = (props) => {
     };
 
     const onCreateAccountHandler = (event) => {
+        setFirebaseError("");
         setStatus("signup");
         setValidation({
             email: true,
@@ -42,6 +44,7 @@ const SignInForm = (props) => {
     };
 
     const onSignInHandler = (event) => {
+        setFirebaseError("");
         setStatus("signin");
         setValidation({
             email: true,
@@ -116,10 +119,15 @@ const SignInForm = (props) => {
                     auth,
                     emailRef.current.value,
                     passwordRef.current.value
-                ).then((userCredential) => {
-                    props.setUser(userCredential.user);
-                    onCloseForm();
-                });
+                )
+                    .then((userCredential) => {
+                        setFirebaseError("");
+                        props.setUser(userCredential.user);
+                        onCloseForm();
+                    })
+                    .catch((e) => {
+                        setFirebaseError(e.message);
+                    });
             }
         } else {
             if (
@@ -133,50 +141,58 @@ const SignInForm = (props) => {
                     auth,
                     emailRef.current.value,
                     passwordRef.current.value
-                ).then((userCredential) => {
-                    props.setUser(userCredential.user);
-                    updateProfile(userCredential.user, {
-                        displayName: usernameRef.current.value,
-                    }).then(() => {
-                        set(
-                            ref(
-                                database,
-                                `${userCredential.user.uid}/Set_as_watched`
-                            ),
-                            {
-                                init: true,
-                            }
-                        );
-                        set(
-                            ref(
-                                database,
-                                `${userCredential.user.uid}/Set_as_planned`
-                            ),
-                            {
-                                init: true,
-                            }
-                        );
-                        set(
-                            ref(
-                                database,
-                                `${userCredential.user.uid}/Set_as_currently_watching`
-                            ),
-                            {
-                                init: true,
-                            }
-                        );
-                        set(
-                            ref(
-                                database,
-                                `${userCredential.user.uid}/favourites`
-                            ),
-                            {
-                                init: true,
-                            }
-                        );
-                        onCloseForm();
+                )
+                    .then((userCredential) => {
+                        setFirebaseError("");
+                        props.setUser(userCredential.user);
+                        updateProfile(userCredential.user, {
+                            displayName: usernameRef.current.value,
+                        }).then(() => {
+                            setFirebaseError("");
+                            set(
+                                ref(
+                                    database,
+                                    `${userCredential.user.uid}/Set_as_watched`
+                                ),
+                                {
+                                    init: true,
+                                }
+                            );
+                            set(
+                                ref(
+                                    database,
+                                    `${userCredential.user.uid}/Set_as_planned`
+                                ),
+                                {
+                                    init: true,
+                                }
+                            );
+                            set(
+                                ref(
+                                    database,
+                                    `${userCredential.user.uid}/Set_as_currently_watching`
+                                ),
+                                {
+                                    init: true,
+                                }
+                            );
+                            set(
+                                ref(
+                                    database,
+                                    `${userCredential.user.uid}/favourites`
+                                ),
+                                {
+                                    init: true,
+                                }
+                            ).catch((e) => {
+                                setFirebaseError(e.message);
+                            });
+                            onCloseForm();
+                        });
+                    })
+                    .catch((e) => {
+                        setFirebaseError(e.message);
                     });
-                });
             }
         }
     };
@@ -266,6 +282,9 @@ const SignInForm = (props) => {
                         </span>
                     )}
                 </div>
+                {firebaseError && (
+                    <div className={styles.error}>{firebaseError}</div>
+                )}
                 <div className={styles["btn-container"]}>
                     <GreenButton
                         button={{ type: "submit" }}

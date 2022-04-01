@@ -45,7 +45,6 @@ const SortingComments = (props) => {
     };
 
     const onItemsClickHandler = (event) => {
-        console.log(props.comment);
         setIsSortMenuExpanded(false);
         if (event.target.textContent === "Date (from the oldest)") {
             if (sortType !== "oldest") {
