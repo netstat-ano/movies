@@ -21,7 +21,6 @@ const ContextMenu = (props) => {
             >
                 My profile
             </div>
-            <div className={styles["context-menu-item"]}>Test</div>
             <div
                 onClick={onLogoutHandler}
                 className={styles["context-menu-item"]}

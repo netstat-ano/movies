@@ -5,8 +5,11 @@ const Content = (props) => {
     return (
         <div className={styles.content}>
             {!props.profileSite && (
-                <div>
-                    <div> </div>
+                <div className={styles.main}>
+                    <div>
+                        On this website you can search any movie by searchbar
+                        and add film to your lists or to your favourites.
+                    </div>
                 </div>
             )}
             {props.profileSite && (
