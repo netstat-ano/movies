@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import MovieList from "../MovieList/MovieList";
 import Overview from "../Overview/Overview";
 import Favourites from "../Favourites/Favourites";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import {
     getStorage,
     uploadBytes,
@@ -16,23 +18,29 @@ import {
 const ProfileSite = (props) => {
     const [chartList, setChartList] = useState(null);
     const [selectedTab, setSelectedTab] = useState("Overview");
-    const [userAvatar, setUserAvatar] = useState();
+    const [userAvatar, setUserAvatar] = useState(null);
+    const [isUpdatingAvatar, setIsUpdatingAvatar] = useState(false);
     const fetchAvatar = (event) => {
+        setIsUpdatingAvatar(true);
         const storage = getStorage(app);
         const storageRef = sRef(storage, `${props.user.uid}/avatar`);
         getDownloadURL(storageRef)
             .then((url) => {
+                setIsUpdatingAvatar(false);
                 setUserAvatar(url);
             })
             .catch((e) => {
+                setIsUpdatingAvatar(false);
                 setUserAvatar(defaultAvatar);
             });
     };
     const onChangeAvatarHandler = (event) => {
+        setIsUpdatingAvatar(true);
         const storage = getStorage(app);
         const storageRef = sRef(storage, `${props.user.uid}/avatar`);
         uploadBytes(storageRef, event.target.files[0]).then(() => {
             fetchAvatar();
+            setIsUpdatingAvatar(false);
         });
     };
 
@@ -73,6 +81,16 @@ const ProfileSite = (props) => {
                 <div className={styles.username}>{props.user.displayName}</div>
                 <div className={styles["container"]}>
                     <div className={styles["avatar-container"]}>
+                        {isUpdatingAvatar && (
+                            <div
+                                className={`${styles.loading} ${styles["img-overlay"]}`}
+                            >
+                                <FontAwesomeIcon
+                                    className="fa-spin"
+                                    icon={faSpinner}
+                                />
+                            </div>
+                        )}
                         <img className={styles.avatar} src={userAvatar}></img>
                         <div className={styles["img-overlay"]}>
                             <div className={styles["change-avatar"]}>
